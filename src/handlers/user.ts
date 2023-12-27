@@ -16,6 +16,7 @@ export const SignIn = async(req,res)=>{
     const user =await prisma .user.findUnique({
         where :{
             username:req.body.username
+            // added a cmment
         }
     })
     const isValid =await comparePassword(req.body.password,user.password)

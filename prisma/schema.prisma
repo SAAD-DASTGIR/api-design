@@ -22,6 +22,7 @@ model Product {
   name        String   @db.VarChar(255)
   belongsToId String
   belongsTo   User     @relation(fields: [belongsToId], references: [id])
+  @@unique([id, belongsToId])
   updates     Update[]
 }
 

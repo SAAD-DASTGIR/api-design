@@ -1,15 +1,19 @@
 import prisma from "../modules/db";
 export const getProduct = async (req, res) => {
-    const user =await prisma.user.findUnique({
+    const product =await prisma.product.findMany({
         where:{
             id:req.body.id
         },
         include:{
-            products:true
+            belongsTo:true
         }
             
     })
-    res.json({data:user.products})
+    res.json({data:product})
+    if (!product) {
+        res.json({data:[]})
+    }
+    
 }
 export const getOneProduct =async(req,res)=>{
     const id =req.params.id
@@ -19,7 +23,8 @@ export const getOneProduct =async(req,res)=>{
             belongsToId:req.user.id
         }
     })
-    res.json({data:product.id})
+    res.json({data:product})
+    
 }
 
 export const createProduct = async (req,res)=>{

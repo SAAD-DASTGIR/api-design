@@ -1,27 +1,24 @@
 import {Router} from 'express'
 import {body,oneOf,validationResult} from 'express-validator'
 import { ErrorHandler } from './modules/middleware'
-import { getOneProduct, getProduct } from './handlers/product'
+import { createProduct, deleteProduct, getOneProduct, getProduct } from './handlers/product'
+import { createUpdate, deleteUpdate, getOneUpdate, getUpdate, updateUpdate } from './handlers/update'
 const router = Router()
 
 router.get('/product',getProduct)
-router.get('/product',(req,res)=>{
-    res.json({message:"heloo "}) 
-})
-router.get('/product:id',(()=>{}))
-router.post('/product',()=>{})
+router.get('/product/:id',getOneProduct)
+router.post('/product',body('name').isString(),ErrorHandler,createProduct)
 router.put('/product/:id',body('name').isString(),ErrorHandler,(req,res)=>{
-   
-    
 })
-router.delete('/product:id',()=>{})
+router.delete('/product/:id',deleteProduct)
 
-router.get('/update',()=>{})
-router.get('/update:id',()=>{})
+router.get('/update',getUpdate)
+router.get('/update:id',body('name').isString(),ErrorHandler,getOneUpdate)
 router.post('/update',
     body('title').exists().isString(),
     body('body').exists().isString(),
-()=>{})
+    body('productId').exists().isString(),
+createUpdate)
 router.put('/update:id',
     body('title').optional(),
     body('body').optional(),
@@ -30,8 +27,8 @@ router.put('/update:id',
         body('SHIPPED'),
         body('DEPRICIATED')]),
     body('version').optional(),
-()=>{})
-router.delete('/update:id',()=>{})
+updateUpdate)
+router.delete('/update:id',deleteUpdate)
 
 
 router.get('/updatepoint',()=>{})

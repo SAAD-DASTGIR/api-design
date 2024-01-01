@@ -13,13 +13,13 @@ router.put('/product/:id',body('name').isString(),ErrorHandler,(req,res)=>{
 router.delete('/product/:id',deleteProduct)
 
 router.get('/update',getUpdate)
-router.get('/update:id',body('name').isString(),ErrorHandler,getOneUpdate)
+router.get('/update/:id',ErrorHandler,getOneUpdate)
 router.post('/update',
     body('title').exists().isString(),
     body('body').exists().isString(),
     body('productId').exists().isString(),
 createUpdate)
-router.put('/update:id',
+router.put('/update/:id',
     body('title').optional(),
     body('body').optional(),
     body('status').isIn(
@@ -28,7 +28,7 @@ router.put('/update:id',
         body('DEPRICIATED')]),
     body('version').optional(),
 updateUpdate)
-router.delete('/update:id',deleteUpdate)
+router.delete('/update/:id',deleteUpdate)
 
 
 router.get('/updatepoint',()=>{})
